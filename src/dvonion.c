@@ -43,7 +43,7 @@
 #define LIST_X 63
 #define prompt "SAFETALK>"
 
-#define DBSERVER_IP "192.168.60.140"
+#define DBSERVER_IP "127.0.0.1"
 #define DBSERVER_PORT 4000
 
 typedef struct __record{
