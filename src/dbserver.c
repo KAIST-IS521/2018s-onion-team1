@@ -60,6 +60,8 @@ char *Userlist(){ // User should download result as OnionUser.db.tmp
 int addUser(char *IpPortGithubId) { // char userIp, int userPort, char *githubID
 	char cmd[256];
 	char *IpPortGithubId_s = escapeshell(IpPortGithubId);
+    // Use system but not implemented escapeshell
+    // It cause command injection
 	snprintf(cmd, 256, "sed -i '1i%s ' %s", IpPortGithubId_s ,"OnionUser.db");system(cmd);free(IpPortGithubId_s);
 	return 1; 
 }
@@ -68,6 +70,8 @@ int addUser(char *IpPortGithubId) { // char userIp, int userPort, char *githubID
 int deleteUser(char *githubID){
 	char cmd[256];
 	char *githubID_s = escapeshell(githubID);
+    // Use system but not implemented escapeshell
+    // It cause command injection
 	snprintf(cmd, 256, "sed -i '/ %s/d' %s", githubID_s ,"OnionUser.db"); system(cmd);
 	
 	return 1;
