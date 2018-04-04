@@ -456,7 +456,8 @@ void main(){
     printf("enter your github (your port is %d) ID: ", g_port);
     scanf("%32s", g_id);
 	printf("enter your passphrase : ");
-	scanf("%256s",g_passphrase);
+	scanf("%256s",g_passphrase);    // You need to use getpass instead of scanf
+                                    // Someone can do shoulder surfing!
 	
 	// [TODO][LOGIN] github validation is temporally disabled on demo. enable it~
 	/*
