@@ -2,9 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-// I think this implementation is not complete
-// This can cause command injection in system(cmd)
-
 char *escapeshell(char* str){// w3challs safels
 	/*
 	char * buffer = (char *) malloc(strlen(str)+1);
