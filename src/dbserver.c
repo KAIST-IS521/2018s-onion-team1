@@ -135,13 +135,16 @@ int run_dbserver(int dbserver_port){
          exit(1);
       }
 
-      read(client_socket, buff_rcv, BUFF_SIZE);
+      read(client_socket, buff_rcv, BUFF_SIZE); // read as much as BUFF_SIZE == 1024
       
 	  // server command : @adduser, @deleteuser, @userlist
 	  if (!strncmp(buff_rcv,"@adduser",strlen("@adduser"))){ 
 		strcpy(param, ipstr);
         strcat(param, " ");
-        strcat(param, buff_rcv+strlen("@adduser")+1);
+        strcat(param, buff_rcv+strlen("@adduser")+1); 
+        // In above line heapoverflow can be occured
+        // Also read function not add null terminator, so addUser could be called with unexpected argument
+        // and information leak can be occur
 		 addUser(param);                 
 		 printf("[DBSERVER] User login : %s\n",buff_rcv+strlen("@adduser")+1); 
 	  }
