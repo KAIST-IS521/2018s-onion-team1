@@ -44,15 +44,15 @@ int  auth_passphrase(char *passphrase, char *mygithubId){
 	
 	system("gpg --help > auth_passphrase.tmp");
     snprintf(cmd, 256, "gpg --trust-model always -r %s --encrypt auth_passphrase.tmp", pub_key); system(cmd); // [HERE]
-    snprintf(cmd, 256, "echo %s | gpg --passphrase-fd 0 -r %s --decrypt auth_passphrase.tmp.gpg > authresult.tmp",passphrase_s, pub_key); system(cmd);
+    snprintf(cmd, 256, "echo %s | gpg --passphrase-fd 0 -r %s --decrypt auth_passphrase.tmp.gpg > authresult.tmp",passphrase_s, pub_key); system(cmd);  // Create authresult.tmp
     system("rm auth_passphrase.tmp.gpg");
     system("rm auth_passphrase.tmp");
 
     FILE *f;
-    f = fopen("authresult.tmp", "r");
-    if(fgetc(f) == EOF) auth=0;
-    else auth=1; //valid
-	
+    f = fopen("authresult.tmp", "r");   // Open a authresult.tmp and check it is blank or not
+    if(fgetc(f) == EOF) auth=0;         // vulnerable to race condition 
+    else auth=1; //valid                // If user make authresult.tmp which is not blank,
+	                                    // User can bypass this check routine                                        
 	system("rm authresult.tmp");
 	free(passphrase_s);
 	return auth;
